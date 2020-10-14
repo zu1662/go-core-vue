@@ -8,7 +8,7 @@ import { storageOptions } from '@/config/defaultSetting'
 import ThemeChalk from '@/utils/themeChalk'
 
 // mock
-import './mock'
+// import './mock'
 
 // use
 import './use'

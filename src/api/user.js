@@ -1,19 +1,37 @@
 import { service } from '@/utils/request'
 
 const api = {
-  Login: '/auth/login',
-  Logout: '/auth/logout',
+  Login: '/base/login',
+  Captcha: '/base/captcha',
+  Logout: '/base/logout',
+  MenuList: '/menu/tree',
   ForgetPsw: '/auth/forget-password',
   Register: '/auth/register',
   SendSms: '/account/sms',
   // get my info
-  UserInfo: '/user/info'
+  UserInfo: '/base/userinfo'
 }
 
 export function login (data) {
   return service({
     url: api.Login,
     method: 'post',
+    data
+  })
+}
+
+export function getCaptcha (data) {
+  return service({
+    url: api.Captcha,
+    method: 'get',
+    data
+  })
+}
+
+export function getMenuList (data) {
+  return service({
+    url: api.MenuList,
+    method: 'get',
     data
   })
 }

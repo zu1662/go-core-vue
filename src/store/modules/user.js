@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getInfo, logout } from '@/api/user'
+import { login, getInfo, logout, getMenuList } from '@/api/user'
 import { ACCESS_TOKEN, SET_LOCKER, LOCKER_PSW, LOCKER_REDIRECT } from '@/config/variableInit'
 
 const user = {
@@ -38,8 +38,8 @@ const user = {
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
-          const result = response.result
-          Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
+          const result = response.data
+          Vue.ls.set(ACCESS_TOKEN, result.token, result.expire)
           commit('SET_TOKEN', result.token)
           resolve(result)
         }).catch(error => {
@@ -52,16 +52,28 @@ const user = {
     GetInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
-          const result = response.result
-          if (result.permissions && result.permissions.length > 0) {
-            commit('SET_PERMISSION', result.permissions)
-            commit('SET_INFO', result)
+          const result = response.data
+          commit('SET_INFO', result)
+          commit('SET_NAME', result.userName)
+          commit('SET_AVATAR', result.avatar)
+
+          resolve(response.data)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 获取用户信息
+    GetMenuList ({ commit }) {
+      return new Promise((resolve, reject) => {
+        getMenuList().then(response => {
+          const result = response.data
+          if (result && result.length > 0) {
+            commit('SET_PERMISSION', result)
           } else {
             reject(new Error('getInfo: permissions must be a non-null array !'))
           }
-
-          commit('SET_NAME', result.name)
-          commit('SET_AVATAR', result.avatar)
 
           resolve(result)
         }).catch(error => {

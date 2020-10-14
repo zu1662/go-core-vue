@@ -2,7 +2,7 @@
  * @Author: zu1662
  * @LastEditor: zu1662
  * @Date: 2020-01-04 18:04:44
- * @LastEditTime : 2020-01-04 19:35:21
+ * @LastEditTime : 2020-10-14 17:54:33
  * @Description:
  */
 import Vue from 'vue'
@@ -47,19 +47,21 @@ router.beforeEach((to, from, next) => {
         store
           .dispatch('GetInfo')
           .then(res => {
-            const permissions = res && res.permissions
-            store.dispatch('GenerateRoutes', permissions).then(_ => {
+            store.dispatch('GetMenuList').then(menuResult => {
+              const permissions = menuResult
+              store.dispatch('GenerateRoutes', permissions).then(_ => {
               // 根据roles权限生成可访问的路由表
               // 动态添加可访问路由表
-              router.addRoutes(store.getters.addRouters)
-              const redirect = decodeURIComponent(from.query.redirect || to.path)
-              if (to.path === redirect) {
+                router.addRoutes(store.getters.addRouters)
+                const redirect = decodeURIComponent(from.query.redirect || to.path)
+                if (to.path === redirect) {
                 // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
-                next({ ...to, replace: true })
-              } else {
+                  next({ ...to, replace: true })
+                } else {
                 // 跳转到目的路由
-                next({ path: redirect })
-              }
+                  next({ path: redirect })
+                }
+              })
             })
           })
           .catch(() => {

@@ -2,11 +2,11 @@
  * @Author: zu1662
  * @LastEditor: zu1662
  * @Date: 2019-12-17 09:40:14
- * @LastEditTime: 2020-04-29 14:12:25
+ * @LastEditTime : 2020-10-14 14:45:19
  * @Description: 通用常量定义
  */
 
-export const ACCESS_TOKEN = 'Access-Token'
+export const ACCESS_TOKEN = 'Authorization'
 export const SET_LOCKER = 'SET_LOCKER'
 export const LOCKER_PSW = 'LOCKER_PSW'
 export const LOCKER_REDIRECT = 'LOCKER_REDIRECT'

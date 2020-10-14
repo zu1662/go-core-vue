@@ -61,8 +61,8 @@ export default {
       submitting: false,
       titlename: process.env.VUE_APP_GLOBAL_TITLE || 'vue-element-core',
       loginForm: {
-        userName: '',
-        password: ''
+        userName: 'huazi',
+        password: '123456'
       },
       loginRules: {
         userName: [
