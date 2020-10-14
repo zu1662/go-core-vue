@@ -1,0 +1,193 @@
+// Theme的主题样式，通过变量设置不同theme
+.theme-#{$theme-name} {
+  
+  .app-wrapper {
+    background: $app-bg;
+  }
+
+  // 主体部分
+  .app-body {
+    background-color: $app-body-bg;
+  }
+
+  // breadcrumb
+  .el-breadcrumb {
+    a {
+      color: $breadcrumb-color;
+    }
+    .el-breadcrumb__inner {
+      .no-redirect {
+        color: $breadcrumb-noredirect-color;
+      }
+    }
+  }
+
+  // hamburger
+  .hamburger.svg-icon {
+    color: $hamburger-color;
+  }
+  
+  // 导航栏（header）
+  .navbar {
+    background: transparent;
+    border-bottom: 1px solid $border-color;
+    .right-menu {
+      color: $side-text;
+    }
+  }
+
+  // 页签栏（tag）
+  .tags-view-container {
+    border-bottom: 1px solid $border-color;
+    .tags-view-wrapper {
+      .tags-view-item {
+        border-right: 1px solid $tab-border-color;
+        background-color: $tag-bg-color;
+        color: $tag-text-color;
+        border-bottom: 1px solid $border-color;
+        &.active {
+          background: $tag-active-bg-color;
+          border-bottom: none;
+        }
+        .el-icon-close {
+          &:hover {
+            background-color: $tab-close-bg-color;
+          }
+        }
+      }
+    }
+  }
+
+  // 菜单栏logo
+  .sidebar-logo-container {
+    .sidebar-title {
+      color: $side-text;
+    }
+  }
+  // 菜单项目
+  .sidebar-container {
+    border-right: 1px solid $border-color;
+
+    // copyright颜色设置
+    .copyright {
+      color: $app-text-color;
+    }
+  }
+  @mixin sidebar-menu-style {
+    color: $side-text;
+    i {
+      color: $side-text;
+    }
+  }
+  // 选中时 title 颜色
+  @mixin sidebar-submenu-active-style {
+    // 注释部分针对 字体颜色 和 字体图标 进行颜色设置
+    // color: $sidebar-menu-active;
+    // i {
+    //   color: $sidebar-menu-active;
+    // }
+    // .svg-icon {
+    //   filter: drop-shadow($sidebar-menu-active 80px 0);
+    //   transform: translateX(-80px);
+    // }
+    .svg-icon {
+      color: $sidebar-menu-active
+    }
+  }
+
+  @mixin sidebar-menu-hover-style {
+    color: $side-text-hover;
+    i {
+      color: $side-text-hover;
+    }
+    background-color: $sidebar-menu-hover-bg !important;
+  }
+  // 侧边栏 折叠mixin
+  @mixin sidebar-collapse-menu-style {
+    color: $side-collapse-text;
+    i {
+      color: $side-collapse-text;
+    }
+    background-color: $sidebar-collapse-menu-bg !important;
+  }
+  @mixin sidebar-collapse-menu-hover-style {
+    color: $side-collapse-text-hover;
+    i {
+      color: $side-collapse-text-hover;
+    }
+    background-color: $sidebar-collapse-menu-hover-bg !important;
+  }
+  .el-submenu {
+    .el-submenu__title {
+      @include sidebar-menu-style;
+      @extend %unable-select;
+    }
+    &.is-active {
+      .el-submenu__title {
+        @include sidebar-submenu-active-style;
+      }
+    }
+  }
+  .el-menu-item {
+    @include sidebar-menu-style;
+    @extend %unable-select;
+    &.is-active {
+      background-color: $sidebar-menu-active-bg !important;
+    }
+  }
+  .el-submenu__title:hover {
+    @include sidebar-menu-hover-style;
+  }
+  .el-menu-item:hover {
+    @include sidebar-menu-hover-style;
+  }
+  .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+    @include sidebar-menu-hover-style;
+  }
+  .el-menu--horizontal .el-menu .el-submenu__title:hover {
+    @include sidebar-menu-hover-style;
+  }
+
+  // 侧边栏收缩的展示
+  .el-menu--vertical {
+    .el-submenu__title {
+      @include sidebar-collapse-menu-style;
+    }
+    .el-menu-item {
+      @include sidebar-collapse-menu-style;
+    }
+    .el-submenu__title:hover {
+      @include sidebar-collapse-menu-hover-style;
+    }
+    .el-menu-item:hover {
+      @include sidebar-collapse-menu-hover-style;
+    }
+    .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+      @include sidebar-collapse-menu-hover-style;
+    }
+    .el-menu--horizontal .el-menu .el-submenu__title:hover {
+      @include sidebar-collapse-menu-hover-style;
+    }
+  }
+
+  // topmenu 状态下，下拉的展示
+  .el-menu--horizontal {
+    .nest-menu {
+      .el-menu-item {
+        @include sidebar-collapse-menu-style;
+      }
+      .el-submenu__title:hover {
+        @include sidebar-collapse-menu-hover-style;
+      }
+      .el-menu-item:hover {
+        @include sidebar-collapse-menu-hover-style;
+      }
+      .el-menu-item:not(.is-disabled):hover {
+        @include sidebar-collapse-menu-hover-style;
+      }
+      .el-menu .el-submenu__title:hover {
+        @include sidebar-collapse-menu-hover-style;
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+// vscode 的路径配置
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

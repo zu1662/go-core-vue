@@ -1,0 +1,38 @@
+// theme name
+$theme-name:              'default';
+
+// 导航栏 颜色变量
+$sidebar-menu-active:     $primary-color; // 默认使用系统自定义颜色
+$sidebar-menu-active-bg: #eee;
+$sidebar-menu-hover-bg:  #eee;
+$side-text:              #333;
+$side-text-hover:        #333;
+
+// 导航栏 折叠样颜色变量
+$sidebar-collapse-menu-bg:        #fff;
+$sidebar-collapse-menu-hover-bg:  #eee;
+$side-collapse-text:              #333;
+$side-collapse-text-hover:        #333;
+
+// 主体 颜色变量
+$app-bg:        #fff;
+$app-body-bg:   #fff;
+$border-color:  #dcdee2;
+$app-text-color:#333;
+
+// 面包屑导航
+$breadcrumb-color:            #333;
+$breadcrumb-noredirect-color: #97a8be;
+
+// 汉堡图标
+$hamburger-color: #333;
+
+// 页签栏设置
+$tag-bg-color:        #ebf1f6;
+$tag-text-color:      #333;
+$tag-active-bg-color: #fff;
+$tab-close-bg-color:  #b4bccc;
+$tab-border-color:    #e3e3e3;
+
+// Mobile 展示
+$mobile-sidebar-menu-bg: #ebf1f6;

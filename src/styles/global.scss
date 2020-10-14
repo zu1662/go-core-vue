@@ -1,0 +1,472 @@
+/**
+  全局基础设置，包括 sidebar， navbar， tagbar， maincontainer 等样式
+*/
+@import '~@/styles/var.scss';
+@import "~@/styles/mixin.scss";
+// 禁止用户选中 鼠标变为手形
+%unable-select {
+  user-select: none;
+  cursor: pointer;
+}
+
+.app-wrapper {
+  @include clearfix-mixin;
+  position: relative;
+  height: fit-content;
+  min-height: 100%;
+  width: 100%;
+  // 固定 header
+  &.fixedHeader {
+    height: 100%;
+    .app-body {
+      position: relative;
+      overflow: auto;
+      height: 100%;
+    }
+  }
+
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    width: calc(100% - #{$sidebar-width});
+    transition: width 0.28s;
+  }
+  
+}
+
+// 主体
+.main-container {
+  height: 100%;
+  transition: margin-left .28s;
+  margin-left: $sidebar-width;
+  // position: relative;
+  z-index: 9;
+
+  .page-view {
+    padding: 2rem;
+  }
+  &.main-topmenu {
+    margin-left: 0;
+
+    .fixed-header {
+      width: 100%;
+    }
+  }
+}
+
+
+// 导航栏（头部）
+.navbar {
+  height: $header-height;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+  &.navbar-topmenu {
+    .right-menu {
+      color: #fff;
+    }
+  }
+
+  .left-menu {
+    flex: 1;
+
+    .hamburger-container {
+      line-height: $header-height;
+      height: 100%;
+      float: left;
+      cursor: pointer;
+      transition: background .3s;
+
+      &:hover {
+        background: rgba(0, 0, 0, .025)
+      }
+    }
+
+    .breadcrumb-container {
+      float: left;
+    }
+  }
+
+  .right-menu {
+    display: flex;
+    height: 100%;
+    line-height: $header-height;
+
+    &:focus {
+      outline: none;
+    }
+
+    .right-menu-item {
+      display: inline-block;
+      padding: 0 8px;
+      height: 100%;
+      font-size: 18px;
+      vertical-align: text-bottom;
+
+      &.hover-effect {
+        cursor: pointer;
+        transition: background .3s;
+
+        &:hover {
+          background: rgba(0, 0, 0, .025)
+        }
+      }
+    }
+
+    .avatar-container {
+      margin-right: 30px;
+
+      .avatar-wrapper {
+        margin-top: 5px;
+        position: relative;
+
+        .user-avatar {
+          cursor: pointer;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+        }
+
+        .el-icon-caret-bottom {
+          cursor: pointer;
+          position: absolute;
+          right: -20px;
+          top: 25px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+
+// 导航栏 logo
+.sidebar-logo-container {
+  position: relative;
+  width: 100%;
+  height: $header-height;
+  line-height: $header-height;
+  text-align: center;
+  overflow: hidden;
+
+  .sidebar-logo-link {
+    height: 100%;
+    width: 100%;
+
+    .sidebar-logo {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+      margin-right: 12px;
+    }
+
+    .sidebar-title {
+      display: inline-block;
+      margin: 0;
+      font-weight: 600;
+      line-height: $header-height;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  }
+  &.collapse {
+    .sidebar-logo {
+      margin-right: 0px;
+    }
+  }
+}
+
+// 顶部导航栏模式
+.sidebar-topmenu {
+  display: flex;
+
+  .sidebar-logo-container {
+    max-width: $sidebar-width;
+  }
+
+  .el-menu--horizontal {
+    display: flex;
+    overflow-x: scroll;
+
+    .menu-wrapper {
+      outline: none;
+      height: $header-height;
+      .el-menu {
+        border: none;
+      }
+      .el-submenu {
+        height: 100%;
+      }
+      .el-submenu__title,
+      .el-menu-item {
+        height: 100%;
+        border: none;
+        padding: 0 40px 0 20px;
+        .svg-icon {
+          margin-right: 10px;
+        }
+        i.el-icon-menu {
+          display: inline-block;
+          width: 1rem;
+          height: 1rem;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+// 侧边导航栏样式
+.sidebar-container {
+  transition: width 0.28s;
+  width: $sidebar-width !important;
+  height: 100%;
+  position: fixed;
+  font-size: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  overflow: hidden;
+
+  .copyright {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+    z-index: -1;
+    span {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      text-align: center;
+      width: 100%;
+      padding: 10px 0;
+    }
+    img {
+      width: 100%;
+      transition: all 0.5s;
+    }
+  }
+
+  // scroll bar
+  .el-scrollbar {
+    height: calc(100% - #{$header-height});
+
+    // 设置copyright可以跟随view滚动
+    .el-scrollbar__view {
+      padding-bottom: 30px;
+      position: relative;
+      min-height: calc(100% - 30px);
+    }
+
+    .scrollbar-wrapper {
+      overflow-x: hidden !important;
+    }
+  
+    .el-scrollbar__bar.is-vertical {
+      right: 0px;
+    }
+    .is-horizontal {
+      display: none;
+    }
+
+  }
+
+  // reset element-ui css
+  .horizontal-collapse-transition {
+    transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
+  }
+
+  a {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 100;
+      border-left: 3px solid $primary-color;
+      transform: scaleY(.0001);
+      opacity: 0;
+      transition: transform .15s cubic-bezier(.215,.61,.355,1),opacity .15s cubic-bezier(.215,.61,.355,1);
+      content: "";
+    }
+  }
+
+  .svg-icon {
+    margin-right: 10px;
+  }
+  i.el-icon-menu {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 10px;
+  }
+
+  .el-menu {
+    border: none;
+    height: 100%;
+    width: 100% !important;
+    
+    .router-link-active::before {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+
+    .el-submenu {
+      .el-menu-item {
+        padding-left: 45px !important;
+      }
+    }
+  }
+
+}
+
+// 侧边栏 收起
+.el-menu--collapse .el-menu .el-submenu {
+  min-width: $sidebar-width !important;
+}
+
+// 侧边栏 收起
+.hideSidebar {
+  .fixed-header {
+    width: calc(100% - #{$sidebar-collapse-width})
+  }
+  .sidebar-container {
+    width: 54px !important;
+  }
+
+  .main-container {
+    margin-left: 54px;
+  }
+
+  .submenu-title-noDropdown {
+    padding: 0 !important;
+    position: relative;
+
+    .el-tooltip {
+      padding: 0 !important;
+
+      .svg-icon {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .el-submenu {
+    overflow: hidden;
+
+    &>.el-submenu__title {
+      padding: 0 !important;
+
+      .svg-icon {
+        margin-left: 20px;
+      }
+
+      .el-submenu__icon-arrow {
+        display: none;
+      }
+    }
+  }
+
+  .el-menu--collapse {
+    .el-submenu {
+      &>.el-submenu__title {
+        &>span {
+          height: 0;
+          width: 0;
+          overflow: hidden;
+          visibility: hidden;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+
+// mobile 样式展示
+.mobile {
+  .main-container {
+    margin-left: 0px;
+  }
+
+  .drawer-bg {
+    background: #000;
+    opacity: 0.3;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    position: absolute;
+    z-index: 20;
+  }
+  .sidebar-container {
+    z-index: 100;
+    background-color: #fff;
+    transition: transform .28s;
+    width: $sidebar-width !important;
+  }
+
+  &.hideSidebar {
+    .fixed-header {
+      width: 100%;
+    }
+    .sidebar-container {
+      pointer-events: none;
+      transition-duration: 0.3s;
+      transform: translate3d(-$sidebar-width, 0, 0);
+    }
+  }
+  &.openSidebar {
+    position: fixed;
+    top: 0;
+    .fixed-header {
+      width: 100%;
+    }
+  }
+}
+
+.withoutAnimation {
+
+  .main-container,
+  .sidebar-container {
+    transition: none;
+  }
+}
+
+// when menu collapsed
+.el-menu--vertical {
+  &>.el-menu {
+    .svg-icon {
+      margin-right: 16px;
+    }
+  }
+
+  // the scroll bar appears when the subMenu is too long
+  >.el-menu--popup {
+    max-height: 100vh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar-track-piece {
+      background: #d3dce6;
+    }
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #99a9bf;
+      border-radius: 20px;
+    }
+  }
+}
