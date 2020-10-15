@@ -61,7 +61,7 @@
 </template>
 <script>
 import md5 from 'md5'
-import { getCaptcha } from '@/api/user'
+import { getCaptcha } from '@/api/base'
 export default {
   name: 'Login',
   data () {

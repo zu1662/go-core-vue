@@ -27,12 +27,12 @@ export const constantRouterMap = [
     path: '/login',
     name: 'login',
     meta: { title: '登陆' },
-    component: () => import(/* webpackChunkName: "Login" */ '@/views/user/Login')
+    component: () => import(/* webpackChunkName: "Login" */ '@/views/login/Login')
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import(/* webpackChunkName: "Register" */ '@/views/user/Register')
+    component: () => import(/* webpackChunkName: "Register" */ '@/views/login/Register')
   },
   {
     path: '/404',
@@ -69,6 +69,24 @@ export const asyncRouterMap = [
           }
         ]
       },
+
+      // dashboard
+      {
+        path: '/system',
+        name: 'system',
+        redirect: '/system/user',
+        component: PageView,
+        meta: { title: '系统管理', keepAlive: true, permissionCode: 'system' },
+        children: [
+          {
+            path: '/system/user',
+            name: 'index',
+            component: () => import('@/views/user/index'),
+            meta: { title: '用户管理', titlePath: 'system.user', keepAlive: true, icon: 'dashboard', permissionCode: 'system:user', affix: false }
+          }
+        ]
+      },
+
       // outpath
       {
         path: '/outpath',
@@ -81,47 +99,6 @@ export const asyncRouterMap = [
             path: 'https://www.baidu.com',
             name: 'outIndex',
             meta: { title: '外链（百度）', titlePath: 'outpath.outpath_BD', icon: 'dashboard', permissionCode: 'outpath:outIndex' }
-          }
-        ]
-      },
-
-      // components
-      {
-        path: '/components',
-        name: 'components',
-        component: PageView,
-        redirect: '/components/AnimateTransition',
-        meta: { title: '组件', titlePath: 'components.mainTitle', icon: 'dashboard', permissionCode: 'components' },
-        children: [
-          {
-            path: '/components/AnimateTransition',
-            name: 'AnimateTransition',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/components/AnTransition.vue'),
-            meta: { title: '动画过渡', titlePath: 'components.transition', permissionCode: 'components:anTransition' }
-          },
-          {
-            path: '/components/watermark',
-            name: 'watermark',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/components/WaterMark.vue'),
-            meta: { title: '水印', titlePath: 'components.watermark', permissionCode: 'components:watermark' }
-          },
-          {
-            path: '/components/highlight',
-            name: 'highlight',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/components/CodeHighlight.vue'),
-            meta: { title: 'code展示', titlePath: 'components.highlight', permissionCode: 'components:highlight' }
-          },
-          {
-            path: '/components/countup',
-            name: 'countup',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/components/CountUp.vue'),
-            meta: { title: '数字动画', titlePath: 'components.countup', permissionCode: 'components:countup' }
-          },
-          {
-            path: '/components/log',
-            name: 'log',
-            component: () => import(/* webpackChunkName: "fail" */ '@/views/components/Log.vue'),
-            meta: { title: 'log输出', titlePath: 'components.log', permissionCode: 'components:log' }
           }
         ]
       },

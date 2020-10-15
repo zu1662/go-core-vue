@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getInfo, logout, getMenuList } from '@/api/user'
+import { login, getInfo, logout, getMenuList } from '@/api/base'
 import { ACCESS_TOKEN, SET_LOCKER, LOCKER_PSW, LOCKER_REDIRECT } from '@/config/variableInit'
 
 const user = {

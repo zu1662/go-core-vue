@@ -1,6 +1,10 @@
 export default {
   route: {
     dashboard: 'Dashboard',
+    system: {
+      mainTitle: 'System Mgmt',
+      user: 'User Mgmt'
+    },
     outpath: {
       mainTitle: 'Outpath',
       outpath_BD: 'outpath( baidu )'
