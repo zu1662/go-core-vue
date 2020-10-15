@@ -24,7 +24,7 @@ export function getCaptcha (data) {
   return service({
     url: api.Captcha,
     method: 'get',
-    data
+    params: data
   })
 }
 
@@ -32,7 +32,7 @@ export function getMenuList (data) {
   return service({
     url: api.MenuList,
     method: 'get',
-    data
+    params: data
   })
 }
 

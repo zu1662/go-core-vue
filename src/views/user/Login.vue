@@ -33,10 +33,17 @@
             <svg-icon slot="prefix" name="password"></svg-icon>
           </el-input>
         </el-form-item>
-        <div class="more-item">
-          <el-checkbox v-model="loginForm.autoLogin">{{$t('user.autoLogin')}}</el-checkbox>
-          <el-link type="primary" :underline="false">{{$t('user.forgetPsw')}}</el-link>
-        </div>
+        <el-form-item class="login-item captcha-box" label="验证码" prop="captchaCode">
+          <el-input
+            class="captcha-input"
+            v-model="loginForm.captchaCode"
+            placeholder="请输入验证码"
+            autocomplete="off"
+          >
+            <svg-icon slot="prefix" name="captcha"></svg-icon>
+          </el-input>
+          <div @click="handleGetCaptcha" v-if="captchaUrl" class="captcha-img"><el-image :src="captchaUrl"></el-image></div>
+        </el-form-item>
         <el-form-item class="submit-item">
           <el-button class="submit-btn" :loading="submitting" type="primary" @click="submitForm('loginForm')">登录</el-button>
         </el-form-item>
@@ -54,6 +61,7 @@
 </template>
 <script>
 import md5 from 'md5'
+import { getCaptcha } from '@/api/user'
 export default {
   name: 'Login',
   data () {
@@ -62,19 +70,41 @@ export default {
       titlename: process.env.VUE_APP_GLOBAL_TITLE || 'vue-element-core',
       loginForm: {
         userName: 'huazi',
-        password: '123456'
+        password: '123456',
+        captchaCode: '',
+        captchaId: ''
       },
+      captchaUrl: '',
       loginRules: {
         userName: [
           { required: true, message: this.$t('user.usernameValidate'), trigger: 'blur' }
         ],
         password: [
           { required: true, message: this.$t('user.passwordValidate'), trigger: 'blur' }
+        ],
+        captchaCode: [
+          { required: true, message: this.$t('user.captchaValidate'), trigger: 'blur' }
         ]
       }
     }
   },
+  created () {
+    this.handleGetCaptcha()
+  },
   methods: {
+    handleGetCaptcha  () {
+      getCaptcha().then(res => {
+        if (Number(res.code) === 1) {
+          this.loginForm.captchaId = res.data.id
+          this.captchaUrl = res.data.captcha
+        } else {
+          this.$notify.error({
+            title: '错误',
+            message: res.msg
+          })
+        }
+      })
+    },
     registe () {
       this.$router.push({ name: 'register' })
     },
@@ -86,12 +116,10 @@ export default {
         if (!valid) return false
         this.submitting = true
         const nowPassword = md5(this.loginForm.password)
-        const params = {
-          username: this.loginForm.userName,
-          password: nowPassword
-        }
+        const params = { ...this.loginForm }
+        params.password = nowPassword
         this.$store.dispatch('Login', params).then(res => {
-          if (res) {
+          if (Number(res.code)) {
             this.$router.push({ path: this.$route.redirect || '/' })
           } else {
             this.$notify.error({
@@ -165,6 +193,24 @@ export default {
             margin-left: .3rem;
             color: #666666;
           }
+          &.captcha-box {
+            .el-form-item__content {
+              display: flex;
+              align-items: center;
+            }
+            .captcha-input {
+              width: 60%;
+            }
+            .captcha-img {
+              display: inline-block;
+              margin-left: 5px;
+              height: 40px;
+              width: 40%;
+              border-radius: 5px;
+              background-color: #fff;
+            }
+          }
+
         }
         .submit-btn {
           margin-top: 2.5rem;

@@ -38,9 +38,11 @@ const user = {
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
-          const result = response.data
-          Vue.ls.set(ACCESS_TOKEN, result.token, result.expire)
-          commit('SET_TOKEN', result.token)
+          const result = response
+          if (Number(response.code)) {
+            Vue.ls.set(ACCESS_TOKEN, result.data.token, result.data.expire)
+            commit('SET_TOKEN', result.data.token)
+          }
           resolve(result)
         }).catch(error => {
           reject(error)
@@ -52,12 +54,13 @@ const user = {
     GetInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
-          const result = response.data
-          commit('SET_INFO', result)
-          commit('SET_NAME', result.userName)
-          commit('SET_AVATAR', result.avatar)
-
-          resolve(response.data)
+          const result = response
+          if (Number(response)) {
+            commit('SET_INFO', result.data)
+            commit('SET_NAME', result.data.userName)
+            commit('SET_AVATAR', result.data.avatar)
+          }
+          resolve(result)
         }).catch(error => {
           reject(error)
         })

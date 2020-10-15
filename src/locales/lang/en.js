@@ -42,6 +42,7 @@ export default {
     rePasswordPlaceholder: 'Please input password again',
     usernameValidate: 'Username cannot be empty',
     passwordValidate: 'Password cannot be empty',
+    captchaValidate: 'Captcha cannot be empty',
     rePasswordValidate: 'Password confirm cannot'
   }
 }

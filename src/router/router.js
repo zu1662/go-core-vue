@@ -136,13 +136,13 @@ export const asyncRouterMap = [
         children: [
           {
             path: '/exception/403',
-            name: 'Exception403',
+            name: 'exception403',
             component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
             meta: { title: '403', titlePath: 'exception.403', permissionCode: 'exception:403' }
           },
           {
             path: '/exception/500',
-            name: 'Exception500',
+            name: 'exception500',
             component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/500'),
             meta: { title: '500', titlePath: 'exception.500', permissionCode: 'exception:500' }
           }

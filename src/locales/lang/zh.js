@@ -42,6 +42,7 @@ export default {
     rePasswordPlaceholder: '请再次输入密码',
     usernameValidate: '用户名不能为空',
     passwordValidate: '密码不能为空',
+    captchaValidate: '验证码不能为空',
     rePasswordValidate: '密码确认不能为空',
     rePassValidate: '密码不一致'
   }
