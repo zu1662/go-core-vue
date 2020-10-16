@@ -80,9 +80,15 @@ export const asyncRouterMap = [
         children: [
           {
             path: '/system/user',
-            name: 'index',
+            name: 'user',
             component: () => import('@/views/user/index'),
             meta: { title: '用户管理', titlePath: 'system.user', keepAlive: true, icon: 'dashboard', permissionCode: 'system:user', affix: false }
+          },
+          {
+            path: '/system/dept',
+            name: 'dept',
+            component: () => import('@/views/dept/index'),
+            meta: { title: ' 部门管理', titlePath: 'system.dept', keepAlive: true, icon: 'dashboard', permissionCode: 'system:user', affix: false }
           }
         ]
       },

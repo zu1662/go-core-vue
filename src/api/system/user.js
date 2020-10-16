@@ -2,6 +2,7 @@ import { service } from '@/utils/request'
 
 const api = {
   UserList: '/user/list',
+  UserListAll: '/user/listall',
   UpdateUser: '/user/update',
   AddUser: '/user/add',
   DelUser: '/user/delete',
@@ -9,10 +10,19 @@ const api = {
   ResetPsw: '/user/resetpsw'
 }
 
-// 查询部门下拉树结构
+// 查询列表
 export function GetUserList (params) {
   return service({
     url: api.UserList,
+    method: 'get',
+    params
+  })
+}
+
+// 查询不分页列表o
+export function GetUserListAll (params) {
+  return service({
+    url: api.UserListAll,
     method: 'get',
     params
   })

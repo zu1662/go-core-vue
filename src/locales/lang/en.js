@@ -3,7 +3,8 @@ export default {
     dashboard: 'Dashboard',
     system: {
       mainTitle: 'System Mgmt',
-      user: 'User Mgmt'
+      user: 'User Mgmt',
+      dept: 'Dept Mgmt'
     },
     outpath: {
       mainTitle: 'Outpath',

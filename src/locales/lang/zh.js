@@ -3,7 +3,8 @@ export default {
     dashboard: '主页',
     system: {
       mainTitle: '系统管理',
-      user: '用户管理'
+      user: '用户管理',
+      dept: '部门管理'
     },
     outpath: {
       mainTitle: '外链',

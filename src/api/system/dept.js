@@ -1,10 +1,14 @@
 import { service } from '@/utils/request'
 
 const api = {
-  DeptTree: '/dept/tree'
+  DeptTree: '/dept/tree',
+  UpdateDept: '/dept/update',
+  AddDept: '/dept/add',
+  DelDept: '/dept/delete',
+  DeptInfo: '/dept/info'
 }
 
-// 查询部门下拉树结构
+// 分页数据
 export function GetDeptTree (params) {
   return service({
     url: api.DeptTree,
@@ -13,52 +17,36 @@ export function GetDeptTree (params) {
   })
 }
 
-export function getDeptList (query) {
-  return service({
-    url: '/api/v1/deptList',
-    method: 'get',
-    params: query
-  })
-}
-
-// 查询部门详细
-export function getDept (deptId) {
-  return service({
-    url: '/api/v1/dept/' + deptId,
-    method: 'get'
-  })
-}
-
-// 根据角色ID查询部门树结构
-export function roleDeptTreeselect (roleId) {
-  return service({
-    url: '/api/v1/roleDeptTreeselect/' + roleId,
-    method: 'get'
-  })
-}
-
-// 新增部门
-export function addDept (data) {
-  return service({
-    url: '/api/v1/dept',
-    method: 'post',
-    data: data
-  })
-}
-
-// 修改部门
+// 修改
 export function updateDept (data) {
   return service({
-    url: '/api/v1/dept',
+    url: api.UpdateDept,
     method: 'put',
     data: data
   })
 }
 
-// 删除部门
-export function delDept (deptId) {
+// 新增
+export function addDept (data) {
   return service({
-    url: '/api/v1/dept/' + deptId,
+    url: api.AddDept,
+    method: 'post',
+    data: data
+  })
+}
+
+// 删除
+export function delDept (id) {
+  return service({
+    url: api.DelDept + `/${id}`,
     method: 'delete'
+  })
+}
+
+// 查询详细
+export function getDeptInfo (id) {
+  return service({
+    url: api.DeptInfo + `/${id}`,
+    method: 'get'
   })
 }
