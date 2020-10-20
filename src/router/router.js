@@ -98,9 +98,15 @@ export const asyncRouterMap = [
           },
           {
             path: '/system/post',
-            name: 'role',
+            name: 'post',
             component: () => import('@/views/post/index'),
             meta: { title: ' 岗位管理', titlePath: 'system.post', keepAlive: true, icon: 'dashboard', permissionCode: 'system:post', affix: false }
+          },
+          {
+            path: '/system/menu',
+            name: 'menu',
+            component: () => import('@/views/menu/index'),
+            meta: { title: ' 菜单管理', titlePath: 'system.menu', keepAlive: true, icon: 'dashboard', permissionCode: 'system:post', affix: false }
           }
         ]
       },

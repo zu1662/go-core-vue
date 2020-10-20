@@ -241,11 +241,12 @@ export default {
     // 所有菜单节点数据
     getMenuAllCheckedKeys () {
       // 目前被选中的菜单节点
-      const checkedKeys = this.$refs.menu.getHalfCheckedKeys()
+      // const checkedKeys = this.$refs.menu.getHalfCheckedKeys()
       // 半选中的菜单节点
-      const halfCheckedKeys = this.$refs.menu.getCheckedKeys()
-      checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys)
-      return checkedKeys
+      const halfCheckedKeys = this.$refs.menu.getCheckedKeys(true)
+      // checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys)
+      // return checkedKeys
+      return halfCheckedKeys
     },
     // 角色状态修改
     handleStatusChange (row) {
@@ -284,7 +285,6 @@ export default {
         roleSort: 0,
         status: '0',
         menuIds: [],
-        deptIds: [],
         remark: undefined
       }
     },
