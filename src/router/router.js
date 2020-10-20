@@ -70,7 +70,7 @@ export const asyncRouterMap = [
         ]
       },
 
-      // dashboard
+      // system
       {
         path: '/system',
         name: 'system',
@@ -107,6 +107,29 @@ export const asyncRouterMap = [
             name: 'menu',
             component: () => import('@/views/menu/index'),
             meta: { title: ' 菜单管理', titlePath: 'system.menu', keepAlive: true, icon: 'dashboard', permissionCode: 'system:post', affix: false }
+          }
+        ]
+      },
+
+      // system
+      {
+        path: '/log',
+        name: 'log',
+        redirect: '/log/loginlog',
+        component: PageView,
+        meta: { title: '日志', keepAlive: true, permissionCode: 'log' },
+        children: [
+          {
+            path: '/log/loginlog',
+            name: 'user',
+            component: () => import('@/views/loginlog/index'),
+            meta: { title: '登录日志', titlePath: 'log.loginlog', keepAlive: true, icon: 'dashboard', permissionCode: 'log:loginlog', affix: false }
+          },
+          {
+            path: '/log/operlog',
+            name: 'user',
+            component: () => import('@/views/operlog/index'),
+            meta: { title: '操作日志', titlePath: 'log.operlog', keepAlive: true, icon: 'dashboard', permissionCode: 'log:operlog', affix: false }
           }
         ]
       },

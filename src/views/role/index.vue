@@ -243,7 +243,7 @@ export default {
       // 目前被选中的菜单节点
       // const checkedKeys = this.$refs.menu.getHalfCheckedKeys()
       // 半选中的菜单节点
-      const halfCheckedKeys = this.$refs.menu.getCheckedKeys(true)
+      const halfCheckedKeys = this.$refs.menu.getCheckedKeys()
       // checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys)
       // return checkedKeys
       return halfCheckedKeys
