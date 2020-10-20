@@ -37,7 +37,7 @@ export function updateRole (data) {
 }
 
 // 新增
-export function addUser (data) {
+export function addRole (data) {
   return service({
     url: api.AddRole,
     method: 'post',
@@ -46,7 +46,7 @@ export function addUser (data) {
 }
 
 // 删除
-export function delUser (id) {
+export function delRole (id) {
   return service({
     url: api.DelRole + `/${id}`,
     method: 'delete'

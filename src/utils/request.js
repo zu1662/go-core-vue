@@ -2,7 +2,7 @@
  * @Author: zu1662
  * @LastEditor: zu1662
  * @Date: 2019-12-16 16:26:12
- * @LastEditTime: 2020-01-08 11:27:56
+ * @LastEditTime : 2020-10-20 10:35:11
  * @Description: axios request封装
  */
 import Vue from 'vue'
@@ -18,7 +18,7 @@ const service = axios.create({
 })
 
 // console.log(process.env.NODE_ENV)
-
+let cancelList = []
 // error handle
 const err = (error) => {
   if (error.response) {
@@ -31,6 +31,11 @@ const err = (error) => {
       })
     }
     if (error.response.status === 401) {
+      cancelList.forEach((cancel) => {
+        cancel('Canceled')
+      })
+      cancelList = []
+
       Notification.error({
         title: 'Unauthorized',
         message: 'Authorization verification failed'
@@ -49,6 +54,11 @@ const err = (error) => {
 
 // request interceptor
 service.interceptors.request.use(config => {
+  // 设置cancelToken对象
+  config.cancelToken = new axios.CancelToken(function (c) {
+    cancelList.push(c)
+  })
+
   const token = Vue.ls.get(ACCESS_TOKEN)
   if (token) {
     config.headers[ACCESS_TOKEN] = token // 让每个请求携带自定义 token 请根据实际情况自行修改

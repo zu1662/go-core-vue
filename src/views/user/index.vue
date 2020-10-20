@@ -146,7 +146,7 @@
           </el-table-column>
         </el-table>
 
-        <el-pagination
+        <pagination
           v-show="total>0"
           :total="total"
           :page.sync="queryParams.pageIndex"
@@ -380,7 +380,7 @@ export default {
       GetUserList(this.queryParams).then(res => {
         if (Number(res.code)) {
           this.userList = res.data.list
-          this.total = res.data.count
+          this.total = res.data.total
           this.loading = false
         }
       }

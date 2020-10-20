@@ -2,7 +2,7 @@
  * @Author: zu1662
  * @LastEditor: zu1662
  * @Date: 2019-12-31 16:54:16
- * @LastEditTime : 2020-10-15 19:46:47
+ * @LastEditTime : 2020-10-16 15:56:24
  * @Description: 自定义的一些插件，在这里引入
  */
 
@@ -29,6 +29,10 @@ import VueLazyload from 'vue-lazyload'
 
 // <row-transition> same as element-ui el-collspe-trasition
 import RowTransition from '@/components/RowTransition'
+
+import Pagination from '@/components/Pagination'
+// 全局组件挂载
+Vue.component('Pagination', Pagination)
 
 Vue.prototype.msgSuccess = function (msg) {
   this.$message({ showClose: true, message: msg, type: 'success' })

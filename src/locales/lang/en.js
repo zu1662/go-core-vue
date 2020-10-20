@@ -4,7 +4,8 @@ export default {
     system: {
       mainTitle: 'System Mgmt',
       user: 'User Mgmt',
-      dept: 'Dept Mgmt'
+      dept: 'Dept Mgmt',
+      role: 'Role Mgmt'
     },
     outpath: {
       mainTitle: 'Outpath',
