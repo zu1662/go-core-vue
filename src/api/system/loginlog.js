@@ -1,35 +1,41 @@
-import { request } from '@/utils/request'
+import { service } from '@/utils/request'
 
-// 查询登录日志列表
-export function list (query) {
-  return request({
-    url: '/api/v1/loginloglist',
+const api = {
+  loginlogList: '/log/loginloglist',
+  loginlogInfo: '/log/loginloginfo',
+  delLoginlog: '/log/deleteloginlog',
+  cleanLoginlog: '/log/cleanloginlog'
+}
+
+// 分页数据
+export function getLoginlogList (params) {
+  return service({
+    url: api.loginlogList,
     method: 'get',
-    params: query
+    params
   })
 }
 
-// 删除登录日志
-export function delLogininfor (infoId) {
-  return request({
-    url: '/api/v1/loginlog/' + infoId,
+// 查询详细
+export function getLoginlogInfo (id) {
+  return service({
+    url: api.loginlogInfo + `/${id}`,
+    method: 'get'
+  })
+}
+
+// 删除
+export function delLoginlog (id) {
+  return service({
+    url: api.delLoginlog + `/${id}`,
     method: 'delete'
   })
 }
 
-// 清空登录日志
-export function cleanLogininfor () {
-  return request({
-    url: '/api/v1/loginlog/clean',
+// 清空
+export function cleanLoginlog () {
+  return service({
+    url: api.cleanLoginlog,
     method: 'delete'
-  })
-}
-
-// 导出登录日志
-export function exportLogininfor (query) {
-  return request({
-    url: '/api/v1/loginlog/export',
-    method: 'get',
-    params: query
   })
 }

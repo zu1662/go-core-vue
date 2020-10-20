@@ -84,11 +84,12 @@
       <el-table-column label="日志编号" width="80" align="center" prop="id" />
       <el-table-column label="系统模块" align="center" prop="operTitle" />
       <el-table-column label="操作类型" width="80" align="center" prop="method" />
-      <el-table-column label="操作人员" align="center" prop="userName" />
-      <el-table-column label="主机" align="center" prop="ipAddress" width="130" :show-overflow-tooltip="true" />
+      <el-table-column label="操作人员" align="center" prop="operName" />
+      <el-table-column label="主机" align="center" prop="ipAddress" min-width="120px" show-overflow-tooltip />
       <el-table-column label="操作地点" align="center" prop="ipLocation" />
-      <el-table-column label="响应时间" align="center" prop="latencyTime" width="180" />
-      <el-table-column label="操作日期" align="center" prop="operTime" width="180">
+      <el-table-column label="响应时间" align="center" prop="latencyTime" min-width="120px" />
+      <el-table-column label="操作结果" align="center" prop="result" min-width="240px" show-overflow-tooltip/>
+      <el-table-column label="操作日期" align="center" prop="operTime" min-width="160px">
         <template slot-scope="scope">
           <span>{{ scope.row.operTime | dateFormat }}</span>
         </template>
@@ -118,38 +119,26 @@
       <el-form ref="form" :model="form" label-width="100px" size="mini">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="操作模块：">{{ form.title }} / {{ form.title }}</el-form-item>
+            <el-form-item label="操作模块：">{{ form.operTitle }}</el-form-item>
             <el-form-item
-              label="登录信息："
-            >{{ form.operName }} / {{ form.operIp }} / {{ form.operLocation }}</el-form-item>
+              label="操作信息："
+            >{{ form.operName }} / {{ form.ipAddress }} / {{ form.ipLocation }}</el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="请求地址：">{{ form.operUrl }}</el-form-item>
-            <el-form-item label="请求方式：">{{ form.requestMethod }}</el-form-item>
+            <el-form-item label="请求地址：">{{ form.path }}</el-form-item>
+            <el-form-item label="请求方式：">{{ form.method }}</el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="耗时：">{{ form.latencyime }}</el-form-item>
+            <el-form-item label="耗时：">{{ form.latencyTime }}</el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="操作方法：">{{ form.method }}</el-form-item>
+            <el-form-item label="请求参数：">{{ form.params }}</el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="请求参数：">{{ form.operParam }}</el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="返回参数：">{{ form.jsonResult }}</el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="操作状态：">
-              <div v-if="form.status === 0">正常</div>
-              <div v-else-if="form.status === 1">失败</div>
-            </el-form-item>
+            <el-form-item label="返回结果：">{{ form.result }}</el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="操作时间：">{{ form.operTime | dateFormat }}</el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item v-if="form.status === 1" label="异常信息：">{{ form.errorMsg }}</el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -161,7 +150,7 @@
 </template>
 
 <script>
-import { getLoginlogList, delOperlog, cleanOperlog } from '@/api/system/operlog'
+import { getOperlogList, delOperlog, cleanOperlog } from '@/api/system/operlog'
 export default {
   name: 'Operlog',
   data () {
@@ -204,9 +193,9 @@ export default {
     /** 查询登录日志 */
     getList () {
       this.loading = true
-      getLoginlogList(this.queryParams).then(response => {
+      getOperlogList(this.queryParams).then(response => {
         this.list = response.data.list
-        this.total = response.data.count
+        this.total = response.data.total
         this.loading = false
       }
       )
@@ -223,7 +212,7 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange (selection) {
-      this.ids = selection.map(item => item.operId)
+      this.ids = selection.map(item => item.id)
       this.multiple = !selection.length
     },
     /** 详细按钮操作 */
@@ -233,7 +222,7 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete (row) {
-      const operIds = row.operId || this.ids
+      const operIds = row.id || this.ids
       this.$confirm('是否确认删除日志编号为"' + operIds + '"的数据项?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

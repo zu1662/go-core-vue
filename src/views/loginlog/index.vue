@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { getLoginlogList, delLoginlog, cleanLoginlog } from '@/api/system/operlog'
+import { getLoginlogList, delLoginlog, cleanLoginlog } from '@/api/system/loginlog'
 export default {
   name: 'Operlog',
   data () {

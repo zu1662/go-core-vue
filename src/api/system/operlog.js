@@ -1,41 +1,41 @@
 import { service } from '@/utils/request'
 
 const api = {
-  loginlogList: '/log/loginloglist',
-  loginlogInfo: '/log/loginloginfo',
-  delLoginlog: '/log/deleteloginlog',
-  cleanLoginlog: '/log/cleanloginlog'
+  operlogList: '/log/operloglist',
+  operlogInfo: '/log/operloginfo',
+  delOperlog: '/log/deleteoperlog',
+  cleanOperlog: '/log/cleanoperlog'
 }
 
 // 分页数据
-export function getLoginlogList (params) {
+export function getOperlogList (params) {
   return service({
-    url: api.loginlogList,
+    url: api.operlogList,
     method: 'get',
     params
   })
 }
 
 // 查询详细
-export function getLoginlogInfo (id) {
+export function getOperlogInfo (id) {
   return service({
-    url: api.loginlogInfo + `/${id}`,
+    url: api.operlogInfo + `/${id}`,
     method: 'get'
   })
 }
 
 // 删除
-export function delLoginlog (id) {
+export function delOperlog (id) {
   return service({
-    url: api.delLoginlog + `/${id}`,
+    url: api.delOperlog + `/${id}`,
     method: 'delete'
   })
 }
 
 // 清空
-export function cleanLoginlog () {
+export function cleanOperlog () {
   return service({
-    url: api.cleanLoginlog,
+    url: api.cleanOperlog,
     method: 'delete'
   })
 }
