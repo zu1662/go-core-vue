@@ -81,14 +81,13 @@
 
     <el-table v-loading="loading" :data="list" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="日志编号" width="80" align="center" prop="operId" />
-      <el-table-column label="系统模块" align="center" prop="title" />
-      <el-table-column label="操作类型" width="80" align="center" prop="businessType" />
-      <el-table-column label="请求方式" width="80" align="center" prop="requestMethod" />
-      <el-table-column label="操作人员" align="center" prop="operName" />
-      <el-table-column label="主机" align="center" prop="operIp" width="130" :show-overflow-tooltip="true" />
-      <el-table-column label="操作地点" align="center" prop="operLocation" />
-      <el-table-column label="操作状态" align="center" prop="status" :formatter="statusFormat" />
+      <el-table-column label="日志编号" width="80" align="center" prop="id" />
+      <el-table-column label="系统模块" align="center" prop="operTitle" />
+      <el-table-column label="操作类型" width="80" align="center" prop="method" />
+      <el-table-column label="操作人员" align="center" prop="userName" />
+      <el-table-column label="主机" align="center" prop="ipAddress" width="130" :show-overflow-tooltip="true" />
+      <el-table-column label="操作地点" align="center" prop="ipLocation" />
+      <el-table-column label="响应时间" align="center" prop="latencyTime" width="180" />
       <el-table-column label="操作日期" align="center" prop="operTime" width="180">
         <template slot-scope="scope">
           <span>{{ scope.row.operTime | dateFormat }}</span>
@@ -162,7 +161,7 @@
 </template>
 
 <script>
-import { list, delOperlog, cleanOperlog } from '@/api/system/operlog'
+import { getLoginlogList, delOperlog, cleanOperlog } from '@/api/system/operlog'
 export default {
   name: 'Operlog',
   data () {
@@ -205,7 +204,7 @@ export default {
     /** 查询登录日志 */
     getList () {
       this.loading = true
-      list(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
+      getLoginlogList(this.queryParams).then(response => {
         this.list = response.data.list
         this.total = response.data.count
         this.loading = false
