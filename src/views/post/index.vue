@@ -38,7 +38,6 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          v-permisaction="['system:syspost:add']"
           type="primary"
           icon="el-icon-plus"
           size="mini"
@@ -47,17 +46,6 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          v-permisaction="['system:syspost:edit']"
-          type="success"
-          icon="el-icon-edit"
-          size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          v-permisaction="['system:syspost:remove']"
           type="danger"
           icon="el-icon-delete"
           size="mini"
@@ -65,47 +53,36 @@
           @click="handleDelete"
         >删除</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-          v-permisaction="['system:syspost:export']"
-          type="warning"
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-        >导出</el-button>
-      </el-col>
     </el-row>
 
     <el-table v-loading="loading" :data="postList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="岗位编号" width="80" align="center" prop="postId" />
+      <el-table-column label="岗位编号" width="80" align="center" prop="id" />
       <el-table-column label="岗位编码" align="center" prop="postCode" />
       <el-table-column label="岗位名称" align="center" prop="postName" />
       <el-table-column label="岗位排序" align="center" prop="sort" />
-      <el-table-column label="状态" align="center" prop="status" :formatter="statusFormat">
+      <el-table-column label="状态" align="center" prop="status">
         <template slot-scope="scope">
           <el-tag
-            :type="scope.row.status === '1' ? 'danger' : 'success'"
+            :type="scope.row.status === '0' ? 'danger' : 'success'"
             disable-transitions
-          >{{ statusFormat(scope.row) }}</el-tag>
+          >{{ scope.row.status == 1 ? '启用': '禁用' }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="createdAt" width="180">
+      <el-table-column label="创建时间" align="center" prop="createTime" min-width="180">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createdAt) }}</span>
+          <span>{{ scope.row.createTime | dateFormat }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" min-width="150">
         <template slot-scope="scope">
           <el-button
-            v-permisaction="['system:syspost:edit']"
             size="mini"
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
           >修改</el-button>
           <el-button
-            v-permisaction="['system:syspost:remove']"
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -144,8 +121,8 @@
             >{{ dict.dictLabel }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="备注" prop="description">
+          <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -157,12 +134,11 @@
 </template>
 
 <script>
-import { listPost, getPost, delPost, addPost, updatePost } from '@/api/system/post'
-import { formatJson } from '@/utils'
+import { GetPostList, getPostInfo, delPost, addPost, updatePost } from '@/api/system/post'
 
 export default {
   name: 'Post',
-  data() {
+  data () {
     return {
       // 遮罩层
       loading: true,
@@ -181,7 +157,7 @@ export default {
       // 是否显示弹出层
       open: false,
       // 状态数据字典
-      statusOptions: [],
+      statusOptions: [{ dictLabel: '禁用', dictValue: '0' }, { dictLabel: '启用', dictValue: '1' }],
       // 查询参数
       queryParams: {
         pageIndex: 1,
@@ -206,33 +182,26 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.getList()
-    this.getDicts('sys_normal_disable').then(response => {
-      this.statusOptions = response.data
-    })
   },
   methods: {
     /** 查询岗位列表 */
-    getList() {
+    getList () {
       this.loading = true
-      listPost(this.queryParams).then(response => {
+      GetPostList(this.queryParams).then(response => {
         this.postList = response.data.list
-        this.total = response.data.count
+        this.total = response.data.total
         this.loading = false
       })
     },
-    // 岗位状态字典翻译
-    statusFormat(row) {
-      return this.selectDictLabel(this.statusOptions, row.status)
-    },
     // 取消按钮
-    cancel() {
+    cancel () {
       this.open = false
       this.reset()
     },
     // 表单重置
-    reset() {
+    reset () {
       this.form = {
         postId: undefined,
         postCode: undefined,
@@ -241,48 +210,46 @@ export default {
         status: '0',
         remark: undefined
       }
-      this.resetForm('form')
     },
     /** 搜索按钮操作 */
-    handleQuery() {
+    handleQuery () {
       this.queryParams.pageIndex = 1
       this.getList()
     },
     /** 重置按钮操作 */
-    resetQuery() {
-      this.resetForm('queryForm')
+    resetQuery () {
       this.handleQuery()
     },
     // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.postId)
+    handleSelectionChange (selection) {
+      this.ids = selection.map(item => item.id)
       this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
-    handleAdd() {
+    handleAdd () {
       this.reset()
       this.open = true
       this.title = '添加岗位'
     },
     /** 修改按钮操作 */
-    handleUpdate(row) {
+    handleUpdate (row) {
       this.reset()
 
-      const postId = row.postId || this.ids
-      getPost(postId).then(response => {
+      const postId = row.id || this.ids
+      getPostInfo(postId).then(response => {
         this.form = response.data
         this.open = true
         this.title = '修改岗位'
       })
     },
     /** 提交按钮 */
-    submitForm: function() {
-      this.$refs['form'].validate(valid => {
+    submitForm: function () {
+      this.$refs.form.validate(valid => {
         if (valid) {
-          if (this.form.postId !== undefined) {
+          if (this.form.id !== undefined) {
             updatePost(this.form).then(response => {
-              if (response.code === 200) {
+              if (response.code) {
                 this.msgSuccess('修改成功')
                 this.open = false
                 this.getList()
@@ -292,7 +259,7 @@ export default {
             })
           } else {
             addPost(this.form).then(response => {
-              if (response.code === 200) {
+              if (response.code) {
                 this.msgSuccess('新增成功')
                 this.open = false
                 this.getList()
@@ -305,43 +272,18 @@ export default {
       })
     },
     /** 删除按钮操作 */
-    handleDelete(row) {
-      const postIds = row.postId || this.ids
+    handleDelete (row) {
+      const postIds = row.id || this.ids
       this.$confirm('是否确认删除岗位编号为"' + postIds + '"的数据项?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).then(function() {
+      }).then(function () {
         return delPost(postIds)
       }).then(() => {
         this.getList()
         this.msgSuccess('删除成功')
-      }).catch(function() {})
-    },
-    /** 导出按钮操作 */
-    handleExport() {
-      // const queryParams = this.queryParams
-      this.$confirm('是否确认导出所有岗位数据项?', '警告', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['岗位编号', '岗位编码', '岗位名称', '排序', '创建时间']
-        const filterVal = ['postId', 'postCode', 'postName', 'sort', 'createdAt']
-        const list = this.postList
-        const data = formatJson(filterVal, list)
-        excel.export_json_to_excel({
-          header: tHeader,
-          data,
-          filename: '岗位管理',
-          autoWidth: true, // Optional
-          bookType: 'xlsx' // Optional
-        })
-        this.downloadLoading = false
-      })
-      }).catch(function() {})
+      }).catch(function () {})
     }
   }
 }

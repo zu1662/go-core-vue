@@ -5,7 +5,8 @@ export default {
       mainTitle: '系统管理',
       user: '用户管理',
       dept: '部门管理',
-      role: '角色管理'
+      role: '角色管理',
+      post: '岗位管理'
     },
     outpath: {
       mainTitle: '外链',

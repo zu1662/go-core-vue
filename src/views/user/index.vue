@@ -111,7 +111,7 @@
               />
             </template>
           </el-table-column>
-          <el-table-column label="创建时间" align="center" prop="createdAt" width="165">
+          <el-table-column label="创建时间" align="center" prop="createTime" width="165">
             <template slot-scope="scope">
               <span>{{ scope.row.createTime | dateFormat }}</span>
             </template>

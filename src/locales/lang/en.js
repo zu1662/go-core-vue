@@ -5,7 +5,8 @@ export default {
       mainTitle: 'System Mgmt',
       user: 'User Mgmt',
       dept: 'Dept Mgmt',
-      role: 'Role Mgmt'
+      role: 'Role Mgmt',
+      post: 'Post mgmt'
     },
     outpath: {
       mainTitle: 'Outpath',
