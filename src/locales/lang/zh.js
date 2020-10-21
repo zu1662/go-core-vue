@@ -8,7 +8,7 @@ export default {
       role: '角色管理',
       post: '岗位管理',
       menu: '菜单管理',
-      dicttype: '字典类型管理',
+      dicttype: '字典管理',
       dictval: '字典数据管理'
     },
     outpath: {

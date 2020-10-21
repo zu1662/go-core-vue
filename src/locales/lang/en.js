@@ -8,7 +8,7 @@ export default {
       role: 'Role Mgmt',
       post: 'Post Mgmt',
       menu: 'Menu Mgmt',
-      dicttype: 'Dicttype Mgmt',
+      dicttype: 'Dict Mgmt',
       dictval: 'Dictval Mgmt'
 
     },

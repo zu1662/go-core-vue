@@ -112,7 +112,7 @@ export const asyncRouterMap = [
             path: '/system/dicttype',
             name: 'dicttype',
             component: () => import('@/views/dict/index'),
-            meta: { title: ' 字典类型管理', titlePath: 'system.dicttype', keepAlive: true, icon: 'dashboard', permissionCode: 'system:dicttype', affix: false }
+            meta: { title: ' 字典管理', titlePath: 'system.dicttype', keepAlive: true, icon: 'dashboard', permissionCode: 'system:dicttype', affix: false }
           },
           {
             path: '/system/dictval/:dictId',
