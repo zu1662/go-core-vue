@@ -7,7 +7,9 @@ export default {
       dept: '部门管理',
       role: '角色管理',
       post: '岗位管理',
-      menu: '菜单管理'
+      menu: '菜单管理',
+      dicttype: '字典类型管理',
+      dictval: '字典数据管理'
     },
     outpath: {
       mainTitle: '外链',

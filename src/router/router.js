@@ -76,7 +76,7 @@ export const asyncRouterMap = [
         name: 'system',
         redirect: '/system/user',
         component: PageView,
-        meta: { title: '系统管理', keepAlive: true, permissionCode: 'system' },
+        meta: { title: '系统管理', keepAlive: true, permissionCode: 'system', icon: 'dashboard' },
         children: [
           {
             path: '/system/user',
@@ -107,6 +107,19 @@ export const asyncRouterMap = [
             name: 'menu',
             component: () => import('@/views/menu/index'),
             meta: { title: ' 菜单管理', titlePath: 'system.menu', keepAlive: true, icon: 'dashboard', permissionCode: 'system:post', affix: false }
+          },
+          {
+            path: '/system/dicttype',
+            name: 'dicttype',
+            component: () => import('@/views/dict/index'),
+            meta: { title: ' 字典类型管理', titlePath: 'system.dicttype', keepAlive: true, icon: 'dashboard', permissionCode: 'system:dicttype', affix: false }
+          },
+          {
+            path: '/system/dictval/:dictId',
+            name: 'dictval',
+            hidden: true,
+            component: () => import('@/views/dict/data'),
+            meta: { title: ' 字典数据管理', titlePath: 'system.dictval', keepAlive: true, icon: 'dashboard', permissionCode: 'system:dictval', affix: false }
           }
         ]
       },
@@ -117,7 +130,7 @@ export const asyncRouterMap = [
         name: 'log',
         redirect: '/log/loginlog',
         component: PageView,
-        meta: { title: '日志', keepAlive: true, permissionCode: 'log' },
+        meta: { title: '日志', keepAlive: true, permissionCode: 'log', icon: 'dashboard' },
         children: [
           {
             path: '/log/loginlog',

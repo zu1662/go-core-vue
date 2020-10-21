@@ -1,61 +1,53 @@
-import { request } from '@/utils/request'
+import { service } from '@/utils/request'
 
-// 查询字典数据列表
-export function listData (query) {
-  return request({
-    url: '/api/v1/dict/datalist?dictType=' + query.dictType,
+const api = {
+  DictValList: '/dict/dictdatalist',
+  DictMap: '/dict/dictmap',
+  DictValInfo: '/dict/dictdata',
+  DictValUpdate: '/dict/dictdataupdate',
+  DictValDelete: '/dict/dictdatadelete',
+  DictValAdd: '/dict/dictdataadd'
+}
+
+// 分页数据
+export function getDictValList (params) {
+  return service({
+    url: api.DictValList,
     method: 'get',
-    params: query
+    params
   })
 }
 
-// 查询字典数据详细
-export function getData (dictCode) {
-  return request({
-    url: '/api/v1/dict/data/' + dictCode,
-    method: 'get'
-  })
-}
-
-// 根据字典类型查询字典数据信息
-export function getDicts (dictType) {
-  return request({
-    url: '/api/v1/dict/databytype/' + dictType,
-    method: 'get'
-  })
-}
-
-// 新增字典数据
-export function addData (data) {
-  return request({
-    url: '/api/v1/dict/data',
-    method: 'post',
-    data: data
-  })
-}
-
-// 修改字典数据
-export function updateData (data) {
-  return request({
-    url: '/api/v1/dict/data/',
+// 修改
+export function updateDictVal (data) {
+  return service({
+    url: api.DictValUpdate,
     method: 'put',
     data: data
   })
 }
 
-// 删除字典数据
-export function delData (dictCode) {
-  return request({
-    url: '/api/v1/dict/data/' + dictCode,
+// 新增
+export function addDictVal (data) {
+  return service({
+    url: api.DictValAdd,
+    method: 'post',
+    data: data
+  })
+}
+
+// 删除
+export function delDictVal (id) {
+  return service({
+    url: api.DictValDelete + `/${id}`,
     method: 'delete'
   })
 }
 
-// 导出字典数据
-export function exportData (query) {
-  return request({
-    url: '/api/v1/dict/data/export',
-    method: 'get',
-    params: query
+// 查询详细
+export function getDictValInfo (id) {
+  return service({
+    url: api.DictValInfo + `/${id}`,
+    method: 'get'
   })
 }

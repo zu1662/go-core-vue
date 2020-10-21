@@ -1,61 +1,62 @@
-import { request } from '@/utils/request'
+import { service } from '@/utils/request'
 
-// 查询字典类型列表
-export function listType (query) {
-  return request({
-    url: '/api/v1/dict/typelist',
+const api = {
+  DictTypeList: '/dict/dicttypelist',
+  DictMap: '/dict/dictmap',
+  DictTypeInfo: '/dict/dicttype',
+  DictTypeUpdate: '/dict/dicttypeupdate',
+  DictTypeDelete: '/dict/dicttypedelete',
+  DictTypeAdd: '/dict/dicttypeadd'
+}
+
+// 分页数据
+export function getDictTypeList (params) {
+  return service({
+    url: api.DictTypeList,
     method: 'get',
-    params: query
+    params
   })
 }
 
-// 查询字典类型详细
-export function getType (dictId) {
-  return request({
-    url: '/api/v1/dict/type/' + dictId,
-    method: 'get'
+// 全部数据
+export function getDictMap (params) {
+  return service({
+    url: api.DictMap,
+    method: 'get',
+    params
   })
 }
 
-// 新增字典类型
-export function addType (data) {
-  return request({
-    url: '/api/v1/dict/type',
-    method: 'post',
-    data: data
-  })
-}
-
-// 修改字典类型
-export function updateType (data) {
-  return request({
-    url: '/api/v1/dict/type',
+// 修改
+export function updateDictType (data) {
+  return service({
+    url: api.DictTypeUpdate,
     method: 'put',
     data: data
   })
 }
 
-// 删除字典类型
-export function delType (dictId) {
-  return request({
-    url: '/api/v1/dict/type/' + dictId,
+// 新增
+export function addDictType (data) {
+  return service({
+    url: api.DictTypeAdd,
+    method: 'post',
+    data: data
+  })
+}
+
+// 删除
+export function delDictType (id) {
+  return service({
+    url: api.DictTypeDelete + `/${id}`,
     method: 'delete'
   })
 }
 
-// 导出字典类型
-export function exportType (query) {
-  return request({
-    url: '/api/v1/dict/type/export',
-    method: 'get',
-    params: query
-  })
-}
-
-// 获取字典选择框列表
-export function optionselect () {
-  return request({
-    url: '/api/v1/dict/typeoptionselect',
+// 查询详细
+export function getDictTypeInfo (id) {
+  return service({
+    url: api.DictTypeInfo + `/${id}`,
     method: 'get'
   })
 }

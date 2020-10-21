@@ -7,7 +7,10 @@ export default {
       dept: 'Dept Mgmt',
       role: 'Role Mgmt',
       post: 'Post Mgmt',
-      menu: 'Menu Mgmt'
+      menu: 'Menu Mgmt',
+      dicttype: 'Dicttype Mgmt',
+      dictval: 'Dictval Mgmt'
+
     },
     outpath: {
       mainTitle: 'Outpath',
