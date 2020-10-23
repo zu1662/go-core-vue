@@ -2,7 +2,7 @@
  * @Author: zu1662
  * @LastEditor: zu1662
  * @Date: 2019-12-16 16:26:12
- * @LastEditTime : 2020-10-20 10:35:11
+ * @LastEditTime : 2020-10-23 18:02:24
  * @Description: axios request封装
  */
 import Vue from 'vue'
@@ -27,7 +27,7 @@ const err = (error) => {
     if (error.response.status === 403) {
       Notification.error({
         title: 'Forbidden',
-        message: data.message
+        message: data.msg
       })
     }
     if (error.response.status === 401) {
