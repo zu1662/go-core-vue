@@ -66,7 +66,7 @@
           <el-tag
             :type="scope.row.status === '0' ? 'danger' : 'success'"
             disable-transitions
-          >{{ scope.row.status == 1 ? '启用': '禁用' }}</el-tag>
+          >{{ getDictVal('STATUS',scope.row.status) }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime" min-width="180">
@@ -157,7 +157,7 @@ export default {
       // 是否显示弹出层
       open: false,
       // 状态数据字典
-      statusOptions: [{ dictLabel: '禁用', dictValue: '0' }, { dictLabel: '启用', dictValue: '1' }],
+      statusOptions: this.getDictList('STATUS'),
       // 查询参数
       queryParams: {
         pageIndex: 1,

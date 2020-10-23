@@ -183,7 +183,7 @@ export default {
       openDataScope: false,
       isEdit: false,
       // 状态数据字典
-      statusOptions: [{ dictLabel: '禁用', dictValue: '0' }, { dictLabel: '启用', dictValue: '1' }],
+      statusOptions: this.getDictList('STATUS'),
       // 菜单列表
       menuOptions: [],
       // 部门列表

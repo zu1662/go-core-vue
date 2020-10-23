@@ -31,7 +31,7 @@
           <el-tag
             :type="scope.row.visible === '0' ? 'danger' : 'success'"
             disable-transitions
-          >{{ scope.row.visible == 1? '显示': '隐藏' }}</el-tag>
+          >{{ getDictVal('STATUS',scope.row.visible) }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -202,9 +202,9 @@ export default {
       // 是否显示弹出层
       open: false,
       // 菜单状态数据字典
-      visibleOptions: [{ dictLabel: '隐藏', dictValue: '0' }, { dictLabel: '显示', dictValue: '1' }],
+      visibleOptions: this.getDictList('VISIBLE'),
       // 菜单缓存数据字典
-      cacheOptions: [{ dictLabel: '不缓存', dictValue: '0' }, { dictLabel: '缓存', dictValue: '1' }],
+      cacheOptions: this.getDictList('CACHE'),
       // 查询参数
       queryParams: {
         title: undefined,

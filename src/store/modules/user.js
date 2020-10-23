@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { login, getInfo, logout, getMenuList } from '@/api/base'
-import { ACCESS_TOKEN, SET_LOCKER, LOCKER_PSW, LOCKER_REDIRECT } from '@/config/variableInit'
+import { getDictMap } from '@/api/system/dict/type'
+import { ACCESS_TOKEN, SET_LOCKER, LOCKER_PSW, LOCKER_REDIRECT, DICT_ALL } from '@/config/variableInit'
 
 const user = {
   state: {
@@ -76,6 +77,24 @@ const user = {
             commit('SET_PERMISSION', result)
           } else {
             reject(new Error('getInfo: permissions must be a non-null array !'))
+          }
+
+          resolve(result)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    // 获取字典信息
+    GetDictList ({ commit }) {
+      return new Promise((resolve, reject) => {
+        getDictMap().then(response => {
+          const result = response.data
+          if (result) {
+            Vue.ls.set(DICT_ALL, result)
+          } else {
+            reject(new Error('getDIct: dictionary must be a non-null object !'))
           }
 
           resolve(result)

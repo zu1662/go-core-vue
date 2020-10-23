@@ -134,13 +134,13 @@ export const asyncRouterMap = [
         children: [
           {
             path: '/log/loginlog',
-            name: 'user',
+            name: 'loginlog',
             component: () => import('@/views/loginlog/index'),
             meta: { title: '登录日志', titlePath: 'log.loginlog', keepAlive: true, icon: 'dashboard', permissionCode: 'log:loginlog', affix: false }
           },
           {
             path: '/log/operlog',
-            name: 'user',
+            name: 'operlog',
             component: () => import('@/views/operlog/index'),
             meta: { title: '操作日志', titlePath: 'log.operlog', keepAlive: true, icon: 'dashboard', permissionCode: 'log:operlog', affix: false }
           }

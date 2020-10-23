@@ -120,7 +120,7 @@
           <el-input v-model="form.dictName" placeholder="请输入字典名称" :disabled="isEdit" />
         </el-form-item>
         <el-form-item label="字典类型" prop="dictType">
-          <el-input v-model="form.dictType" placeholder="请输入字典类型" :disabled="isEdit" />
+          <el-input v-model="form.dictType" placeholder="请输入字典类型" :disabled="isEdit" @input="handleTypeChange" />
         </el-form-item>
         <el-form-item label="显示排序" prop="sort">
           <el-input-number v-model="form.sort" controls-position="right" :min="0" />
@@ -197,6 +197,11 @@ export default {
     this.getList()
   },
   methods: {
+    // type code输入转大写
+    handleTypeChange (val) {
+      if (!val) return false
+      this.form.dictType = val.toUpperCase()
+    },
     // 导航到dictval
     handleRouterToData (id) {
       this.$router.push({ name: 'dictval', params: { dictId: id } })

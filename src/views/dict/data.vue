@@ -60,7 +60,7 @@
             >{{ scope.row.status == 1 ? '启用': '禁用' }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="center" prop="discription" :show-overflow-tooltip="true" />
+      <el-table-column label="备注" align="center" prop="description" :show-overflow-tooltip="true" />
       <el-table-column label="创建时间" align="center" prop="createTime" min-width="160">
         <template slot-scope="scope">
           <span>{{ scope.row.createTime | dateFormat  }}</span>
@@ -96,7 +96,7 @@
     <el-dialog :title="title" :visible.sync="open" width="500px">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="字典类型">
-          <el-input v-model="typeOptions.dictType" :disabled="true" />
+          <el-input v-model="typeOptions.dictType" :disabled="true"/>
         </el-form-item>
         <el-form-item label="数据标签" prop="dictLabel">
           <el-input v-model="form.dictLabel" placeholder="请输入数据标签" :disabled="isEdit" />

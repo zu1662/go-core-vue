@@ -2,7 +2,7 @@
  * @Author: zu1662
  * @LastEditor: zu1662
  * @Date: 2020-01-04 18:04:44
- * @LastEditTime : 2020-10-14 17:54:33
+ * @LastEditTime : 2020-10-23 10:16:01
  * @Description:
  */
 import Vue from 'vue'
@@ -46,7 +46,8 @@ router.beforeEach((to, from, next) => {
       if (store.getters.permissions.length === 0) {
         store
           .dispatch('GetInfo')
-          .then(res => {
+          .then(async res => {
+            await store.dispatch('GetDictList')
             store.dispatch('GetMenuList').then(menuResult => {
               const permissions = menuResult
               store.dispatch('GenerateRoutes', permissions).then(_ => {
