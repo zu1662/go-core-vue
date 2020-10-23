@@ -69,7 +69,7 @@ export default {
       submitting: false,
       titlename: process.env.VUE_APP_GLOBAL_TITLE || 'vue-element-core',
       loginForm: {
-        userName: 'huazi',
+        userName: 'admin',
         password: '123456',
         captchaCode: '',
         captchaId: ''

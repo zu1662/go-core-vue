@@ -120,6 +120,12 @@ export const asyncRouterMap = [
             hidden: true,
             component: () => import('@/views/dict/data'),
             meta: { title: ' 字典数据管理', titlePath: 'system.dictval', keepAlive: true, icon: 'dashboard', permissionCode: 'system:dictval', affix: false }
+          },
+          {
+            path: '/system/interface',
+            name: 'interface',
+            component: () => import('@/views/interface/index'),
+            meta: { title: ' 接口管理', titlePath: 'system.api', keepAlive: true, icon: 'dashboard', permissionCode: '', affix: false }
           }
         ]
       },

@@ -9,7 +9,8 @@ export default {
       post: 'Post Mgmt',
       menu: 'Menu Mgmt',
       dicttype: 'Dict Mgmt',
-      dictval: 'Dictval Mgmt'
+      dictval: 'Dictval Mgmt',
+      api: 'API Mgmt'
 
     },
     outpath: {

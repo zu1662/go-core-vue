@@ -142,6 +142,16 @@
             :props="defaultProps"
           />
         </el-form-item>
+        <el-form-item label="接口权限">
+          <el-tree
+            ref="api"
+            :data="APIOptions"
+            show-checkbox
+            node-key="id"
+            empty-text="加载中，请稍后"
+            :props="apiProps"
+          />
+        </el-form-item>
         <el-form-item label="备注">
           <el-input v-model="form.description" type="textarea" placeholder="请输入内容" />
         </el-form-item>
@@ -158,6 +168,7 @@
 <script>
 import { GetRoleList, getRoleInfo, delRole, addRole, updateRole } from '@/api/system/role'
 import { GetMenuTree } from '@/api/system/menu'
+import { GetAPITree } from '@/api/system/interface'
 
 export default {
   name: 'Role',
@@ -186,6 +197,8 @@ export default {
       statusOptions: this.getDictList('STATUS'),
       // 菜单列表
       menuOptions: [],
+      // API列表
+      APIOptions: [],
       // 部门列表
       deptOptions: [],
       // 查询参数
@@ -201,6 +214,10 @@ export default {
       defaultProps: {
         children: 'children',
         label: 'title'
+      },
+      apiProps: {
+        children: 'children',
+        label: 'name'
       },
       // 表单校验
       rules: {
@@ -219,6 +236,7 @@ export default {
   created () {
     this.getList()
     this.getMenuTree()
+    this.getAPITree()
   },
   methods: {
     /** 查询角色列表 */
@@ -236,6 +254,12 @@ export default {
     getMenuTree () {
       GetMenuTree().then(response => {
         this.menuOptions = response.data
+      })
+    },
+    /** 查询API树结构 */
+    getAPITree () {
+      GetAPITree().then(response => {
+        this.APIOptions = response.data
       })
     },
     // 所有菜单节点数据
@@ -324,6 +348,8 @@ export default {
         this.$nextTick(_ => {
           const menuList = response.data.menuList
           this.$refs.menu.setCheckedKeys(menuList)
+          const apiList = response.data.apiList || []
+          this.$refs.api.setCheckedKeys(apiList)
         })
       })
     },
@@ -333,6 +359,7 @@ export default {
         if (valid) {
           if (this.form.id !== undefined) {
             this.form.menuList = this.getMenuAllCheckedKeys()
+            this.form.apiList = this.$refs.api.getCheckedKeys(true)
             updateRole(this.form).then(response => {
               if (response.code) {
                 this.msgSuccess('修改成功')
@@ -344,6 +371,7 @@ export default {
             })
           } else {
             this.form.menuList = this.getMenuAllCheckedKeys()
+            this.form.apiList = this.$refs.api.getCheckedKeys(true)
             addRole(this.form).then(response => {
               if (response.code) {
                 this.msgSuccess('新增成功')

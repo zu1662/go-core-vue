@@ -9,7 +9,8 @@ export default {
       post: '岗位管理',
       menu: '菜单管理',
       dicttype: '字典管理',
-      dictval: '字典数据管理'
+      dictval: '字典数据管理',
+      api: '接口管理'
     },
     outpath: {
       mainTitle: '外链',
