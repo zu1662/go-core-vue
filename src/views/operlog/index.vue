@@ -81,15 +81,15 @@
 
     <el-table v-loading="loading" :data="list" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="日志编号" width="80" align="center" prop="id" />
-      <el-table-column label="系统模块" align="center" prop="operTitle" />
-      <el-table-column label="操作类型" width="80" align="center" prop="method" />
-      <el-table-column label="操作人员" align="center" prop="operName" />
-      <el-table-column label="主机" align="center" prop="ipAddress" min-width="120px" show-overflow-tooltip />
-      <el-table-column label="操作地点" align="center" prop="ipLocation" />
-      <el-table-column label="响应时间" align="center" prop="latencyTime" min-width="120px" />
-      <el-table-column label="操作结果" align="center" prop="result" min-width="240px" show-overflow-tooltip/>
-      <el-table-column label="操作日期" align="center" prop="operTime" min-width="160px">
+      <el-table-column label="日志编号" width="80" align="center" prop="id" min-width="60"/>
+      <el-table-column label="系统模块" align="center" prop="operTitle" min-width="120" />
+      <el-table-column label="操作类型" width="80" align="center" prop="method" min-width="80" />
+      <el-table-column label="操作人员" align="center" prop="operName" min-width="120" />
+      <el-table-column label="主机" align="center" prop="ipAddress" min-width="120" show-overflow-tooltip />
+      <el-table-column label="操作地点" align="center" prop="ipLocation" min-width="80" />
+      <el-table-column label="响应时间" align="center" prop="latencyTime" min-width="120" />
+      <el-table-column label="操作结果" align="center" prop="result" min-width="160" show-overflow-tooltip/>
+      <el-table-column label="操作日期" align="center" prop="operTime" min-width="150">
         <template slot-scope="scope">
           <span>{{ scope.row.operTime | dateFormat }}</span>
         </template>
